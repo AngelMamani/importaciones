@@ -1,0 +1,335 @@
+/* AdminLayout.css - Based on horario-acc premium design */
+
+.admin-shell {
+  display: block;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 2rem 1.25rem;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 107, 0, 0.15) 0%, transparent 40%),
+    linear-gradient(180deg, var(--color-primary-900), var(--color-primary-800));
+  color: #fff;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 14px 0 32px rgba(0, 51, 128, 0.2);
+  z-index: 100;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 107, 0, 0.3);
+  border-radius: 1rem;
+  padding: 1.5rem 1rem;
+  box-shadow: 0 10px 28px rgba(4, 24, 46, 0.2);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.brand-card::after {
+  content: '';
+  position: absolute;
+  inset: auto -35% -80% auto;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 60%);
+  pointer-events: none;
+}
+
+.brand-card__logo {
+  width: 5.5rem;
+  height: 5.5rem;
+  object-fit: contain;
+  border-radius: 1rem;
+  border: 2px solid rgba(255, 107, 0, 0.6);
+  background: #fff;
+  flex-shrink: 0;
+  padding: 8px;
+}
+
+.brand-block__label {
+  margin: 0;
+  color: #fff7d9;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.brand-block h1 {
+  margin: 0.2rem 0 0.2rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.brand-block span {
+  font-size: 0.8rem;
+  color: #d8edff;
+  opacity: 0.8;
+}
+
+.menu-title {
+  margin: 1.5rem 0 0.75rem;
+  padding-left: 0.5rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.menu-list__item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.menu-list__icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.menu-list__item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.menu-list__item--active {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 
+    inset 3px 0 0 var(--color-gold-500),
+    0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.menu-list__item--active .menu-list__icon {
+  background: var(--color-gold-500);
+  color: var(--color-primary-900);
+}
+
+.admin-content {
+  margin-left: 280px;
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  width: calc(100% - 280px);
+}
+
+.content-inner {
+  width: 100%;
+  margin: 0;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1.25rem;
+  background: linear-gradient(140deg, #ffffff 0%, #edf7ff 100%);
+  box-shadow: 0 10px 30px rgba(8, 54, 95, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--color-primary-800), var(--color-gold-500));
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.header-search input {
+  background: transparent;
+  border: none;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  width: 300px;
+  outline: none;
+}
+
+.icon-btn {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary-800);
+  transition: all 0.2s;
+}
+
+.icon-btn:hover {
+  background: var(--color-primary-100);
+  border-color: var(--color-primary-700);
+}
+
+.hamburger-btn {
+  display: none;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  width: 42px;
+  height: 42px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.hamburger-btn span {
+  width: 100%;
+  height: 2px;
+  background: var(--color-primary-800);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 54, 95, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 90;
+}
+
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+    padding: 1.5rem 1.25rem;
+  }
+  
+  .admin-sidebar--open {
+    transform: translateX(0);
+    box-shadow: 20px 0 50px rgba(0, 51, 128, 0.3);
+  }
+  
+  .admin-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 1.5rem;
+    min-width: 100%;
+  }
+
+  .content-inner {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  .page-header {
+    width: 100% !important;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-radius: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .header-search input {
+    width: 100%;
+    min-width: 200px;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .brand-card {
+    padding: 1rem;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+
+  .brand-card__logo {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .brand-block h1 {
+    font-size: 1.1rem;
+  }
+
+  .brand-block span {
+    display: none;
+  }
+
+  .admin-content {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+  }
+
+  .header-actions {
+    display: none;
+  }
+}
