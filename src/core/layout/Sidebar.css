@@ -60,25 +60,26 @@
 .nav-link {
   display: flex;
   align-items: center;
-  padding: 0.85rem 1rem;
-  border-radius: var(--radius-sm);
-  color: #bfdbfe; /* Light blue text for inactive */
+  padding: 0.8rem 1.25rem;
+  margin: 0 1.25rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
   transition: all 0.2s ease;
-  font-weight: 500;
+  border-radius: 50px;
+  border: 1px solid transparent;
 }
 
 .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.15);
   color: #ffffff;
-  transform: translateX(4px);
 }
 
 .nav-link.active {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.3);
   color: #ffffff;
   font-weight: 700;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
-  border-left: 4px solid #7dd3fc;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(125, 211, 252, 0.4);
 }
 
 .nav-link .icon {

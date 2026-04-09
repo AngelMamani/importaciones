@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { FiSearch, FiFilter, FiPlus, FiEdit2, FiImage } from 'react-icons/fi';
+import { FiSearch, FiFilter, FiPlus, FiEdit2, FiImage, FiEye, FiTrash2, FiTag, FiLayers, FiBox } from 'react-icons/fi';
 import type { Machine } from '../types';
 import MachineryModal from '../components/MachineryModal';
+import MachineDetailModal from '../components/MachineDetailModal';
 import './MachineryList.css';
 
 const INITIAL_DATA: Machine[] = [
@@ -14,6 +15,7 @@ export default function MachineryList() {
   const [machinery, setMachinery] = useState<Machine[]>(INITIAL_DATA);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingMachine, setEditingMachine] = useState<Machine | null>(null);
+  const [viewingMachine, setViewingMachine] = useState<Machine | null>(null);
 
   const handleOpenModal = (machine: Machine | null = null) => {
     setEditingMachine(machine);
@@ -30,14 +32,14 @@ export default function MachineryList() {
     });
   };
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+  const handleDeleteMachine = (id: string) => {
+    if (window.confirm('🚨 ¿Estás seguro que deseas eliminar permanentemente esta máquina?\n\nEsta acción de administrador no se puede deshacer.')) {
+      setMachinery(prev => prev.filter(m => m.id !== id));
+    }
   };
 
-  const handleShareWhatsApp = (machine: Machine) => {
-    const text = `🚜 *Catálogo de Maquinarias* 🚜\n\n*Modelo:* ${machine.name}\n*Marca:* ${machine.brand}\n*Año:* ${machine.year}\n*Precio Ref:* ${formatPrice(machine.price)}\n*Estado:* ${machine.status}\n\n¿Te interesa este equipo? Déjanos un mensaje para enviarte más detalles.`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
-    window.open(whatsappUrl, '_blank');
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
   };
 
   return (
@@ -48,7 +50,7 @@ export default function MachineryList() {
           <p>Catálogo e inventario de equipos pesados</p>
         </div>
         <button className="btn-primary" onClick={() => handleOpenModal(null)}>
-          <FiPlus /> Nueva Máquina
+          <FiPlus size={24} strokeWidth={3} /> Nueva Máquina
         </button>
       </header>
 
@@ -64,7 +66,7 @@ export default function MachineryList() {
 
       <div className="machine-grid">
         {machinery.map(item => (
-          <div className="machine-card glass" key={item.id}>
+          <div className="machine-card glass" key={item.id} onClick={() => setViewingMachine(item)}>
             <div className="machine-card-img-wrapper">
               {item.imageUrl ? (
                 <img src={item.imageUrl} alt={item.name} className="machine-card-img" />
@@ -87,27 +89,37 @@ export default function MachineryList() {
               </div>
               
               <div className="machine-card-details">
-                <div className="machine-detail">
-                  <span className="detail-label">ID / Tipo</span>
-                  <span className="detail-val">{item.id} • {item.type}</span>
+                <div className="machine-detail-row">
+                  <div className="detail-left"><FiTag /> Código</div>
+                  <div className="detail-right">{item.id}</div>
                 </div>
-                <div className="machine-detail">
-                  <span className="detail-label">Unidades en Stock</span>
-                  <span className={`detail-val ${item.stock > 0 ? "stock-positive" : "stock-empty"}`}>
-                    {item.stock}
-                  </span>
+                <div className="machine-detail-row">
+                  <div className="detail-left"><FiLayers /> Segmento</div>
+                  <div className="detail-right">{item.type}</div>
+                </div>
+                <div className="machine-detail-row" style={{ marginTop: '0.25rem', paddingTop: '0.5rem', borderTop: '1px dashed var(--glass-border)' }}>
+                  <div className="detail-left"><FiBox /> Inventario</div>
+                  <div className="detail-right">
+                    <span className={`stock-badge ${item.stock > 0 ? "in-stock" : "out-of-stock"}`}>
+                      {item.stock} {item.stock === 1 ? 'unidad' : 'unidades'}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div className="machine-card-footer">
-              <button className="btn-icon" onClick={() => handleOpenModal(item)} title="Editar" style={{ flex: 1, backgroundColor: 'var(--color-bg-surface-hover)' }}>
-                <FiEdit2 size={16} style={{marginRight: '6px'}} /> Editar
-              </button>
-              <button className="btn-icon btn-whatsapp" onClick={() => handleShareWhatsApp(item)} title="Compartir a WhatsApp">
-                <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="18px" width="18px" xmlns="http://www.w3.org/2000/svg" style={{marginRight: '6px'}}><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                Compartir
-              </button>
+              <div className="fast-actions">
+                <button className="btn-fast view" onClick={(e) => { e.stopPropagation(); setViewingMachine(item); }} title="Ver detalle completo">
+                  <FiEye size={18} /> <span>Ver</span>
+                </button>
+                <button className="btn-fast edit" onClick={(e) => { e.stopPropagation(); handleOpenModal(item); }} title="Editar información">
+                  <FiEdit2 size={18} /> <span>Editar</span>
+                </button>
+                <button className="btn-fast delete" onClick={(e) => { e.stopPropagation(); handleDeleteMachine(item.id); }} title="Eliminar registro">
+                  <FiTrash2 size={18} /> <span>Borrar</span>
+                </button>
+              </div>
             </div>
           </div>
         ))}
@@ -118,6 +130,12 @@ export default function MachineryList() {
         onClose={() => setIsModalOpen(false)}
         machine={editingMachine}
         onSave={handleSaveMachine}
+      />
+
+      <MachineDetailModal 
+        isOpen={!!viewingMachine}
+        onClose={() => setViewingMachine(null)}
+        machine={viewingMachine}
       />
     </div>
   );
